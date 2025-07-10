@@ -16,6 +16,7 @@ const App = () => {
     // if dragged element type is div then make it full height and width and also add some height to it
     clone.style.width = "100%";
     clone.style.height = "50px";
+    clone.setAttribute("draggable", false); 
 
     console.log("Dropped:", draggedElement, "on", draggedElementDropped);
   };
@@ -28,7 +29,7 @@ const App = () => {
     <div className="mt-3.5">
       <div
         draggable="true"
-        className="w-[300px] h-[40px] border-2 border-b-amber-950 m-auto"
+        className="w-[300px] h-[40px] border-2 border-b-amber-950 m-auto resize"
         onDrag={handleDragStart}
       >
         Drag Me
