@@ -1,3 +1,4 @@
+import { Resizable } from "re-resizable";
 import { useState } from "react";
 const App = () => {
   let draggedElement = null;
@@ -69,11 +70,22 @@ const App = () => {
         {data
           .find((item) => item.id === "root")
           ?.children.map((child) => {
+            console.log(child.style);
             const Tag = child.type; // like 'div', 'p', 'button'
             return (
-              <Tag
+              <Resizable
                 key={child.id}
-                style={{
+                enable={{
+                  top: true,
+                  right: true,
+                  bottom: true,
+                  left: true,
+                  topRight: true,
+                  bottomRight: true,
+                  bottomLeft: true,
+                  topLeft: true,
+                }}
+                size={{
                   width:
                     typeof child.style.width === "number"
                       ? `${child.style.width}px`
@@ -82,13 +94,43 @@ const App = () => {
                     typeof child.style.height === "number"
                       ? `${child.style.height}px`
                       : child.style.height,
-                  border: "1px dashed #ccc",
-                  margin: "5px",
                 }}
-                className="p-2"
+                onResizeStop={(e, direction, ref, d) => {
+                  setData((prevData) =>
+                    prevData.map((item) =>
+                      item.id === "root"
+                        ? {
+                            ...item,
+                            children: item.children.map((c) =>
+                              c.id === child.id
+                                ? {
+                                    ...c,
+                                    style: {
+                                      ...c.style,
+                                      width: ref.style.width,
+                                      height: ref.style.height,
+                                    },
+                                  }
+                                : c
+                            ),
+                          }
+                        : item
+                    )
+                  );
+                }}
               >
-                {child.props.text}
-              </Tag>
+                <Tag
+                  style={{
+                    border: "1px dashed #ccc",
+                    margin: "5px",
+                    height: "100%",
+                    width: "100%",
+                  }}
+                  className="p-2"
+                >
+                  {child.props.text}
+                </Tag>
+              </Resizable>
             );
           })}
       </div>
