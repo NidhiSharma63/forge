@@ -10,8 +10,8 @@ const App = () => {
   };
 
   const handleDrop = (event) => {
-    event.preventDefault();
     event.stopPropagation();
+    event.preventDefault();
     const draggedElementDropped = event.currentTarget; // get where the element is dropped
     console.log(draggedElementDropped);
     // setData((prev) =>
@@ -24,34 +24,34 @@ const App = () => {
     //        : item
     //    )
     //  );
-    setData((prev) =>
-      prev.map((item) =>
-        item.id === "root"
-          ? {
-              ...item,
-              children: [
-                ...item.children,
-                {
-                  id: Math.random(),
-                  type: draggedElement.tagName.toLowerCase(),
-                  props: { text: draggedElement.innerHTML },
-                  children: [],
-                  style: {
-                    height:
-                      draggedElement.tagName.toLowerCase() === "div"
-                        ? "40px"
-                        : draggedElement.getBoundingClientRect().height,
-                    width:
-                      draggedElement.tagName.toLowerCase() === "div"
-                        ? "100%"
-                        : draggedElement.getBoundingClientRect().width,
-                  },
-                },
-              ],
-            }
-          : item
-      )
-    );
+    // setData((prev) =>
+    //   prev.map((item) =>
+    //     item.id === "root"
+    //       ? {
+    //           ...item,
+    //           children: [
+    //             ...item.children,
+    //             {
+    //               id: Math.random(),
+    //               type: draggedElement.tagName.toLowerCase(),
+    //               props: { text: draggedElement.innerHTML },
+    //               children: [],
+    //               style: {
+    //                 height:
+    //                   draggedElement.tagName.toLowerCase() === "div"
+    //                     ? "40px"
+    //                     : draggedElement.getBoundingClientRect().height,
+    //                 width:
+    //                   draggedElement.tagName.toLowerCase() === "div"
+    //                     ? "100%"
+    //                     : draggedElement.getBoundingClientRect().width,
+    //               },
+    //             },
+    //           ],
+    //         }
+    //       : item
+    //   )
+    // );
   };
 
   const handleDragOver = (event) => {
@@ -63,7 +63,7 @@ const App = () => {
     <div className="mt-3.5">
       <div
         draggable="true"
-        className="w-[300px] h-[40px] border-2 border-b-amber-950 m-auto resize"
+        className="w-[300px] h-[20px] border-2 border-b-amber-950 m-auto resize"
         onDrag={handleDragStart}
       >
         Drag Me
@@ -77,7 +77,14 @@ const App = () => {
         {data
           .find((item) => item.id === "root")
           ?.children.map((child) => {
-            return <Component child={child} />;
+            return (
+              <Component
+                key={Math.random()}
+                onDrop={handleDrop}
+                child={child}
+                handleDragOver={handleDragOver}
+              />
+            );
           })}
       </div>
     </div>

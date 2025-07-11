@@ -11,18 +11,7 @@ const dummyData = [
             id: Math.random(),
             type: "div",
             props: { text: "I'm inside div" },
-            children: [
-              {
-                id: Math.random(),
-                type: "div",
-                props: { text: "I'm the inside div inside div" },
-                children: [],
-                style: {
-                  height: "20px",
-                  width: "100%",
-                },
-              },
-            ],
+            children: [],
             style: {
               height: "40px",
               width: "60%",
@@ -52,7 +41,7 @@ const dummyData = [
         children: [
           {
             id: Math.random(),
-            type: "div",
+            type: "h1",
             props: { text: "I'm the Third nested" },
             children: [],
             style: {

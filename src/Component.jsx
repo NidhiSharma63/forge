@@ -1,43 +1,43 @@
 import { Resizable } from "re-resizable";
-const Component = ({ child }) => {
+const Component = ({ child, handleDrop, handleDragOver }) => {
   const Tag = child.type;
+  console.log(Tag, "Tag");
   return (
     <Resizable
       key={child.id}
       size={{
         width:
-          typeof child.style.width === "number"
+          typeof child.style?.width === "number"
             ? `${child.style.width}px`
-            : child.style.width,
+            : child.style?.width || "100%",
         height:
-          typeof child.style.height === "number"
+          typeof child.style?.height === "number"
             ? `${child.style.height}px`
-            : child.style.height,
+            : child.style?.height || "100%",
       }}
     >
-      <Tag
-        style={{
-          border: "1px dashed #ccc",
-          height: "100%",
-          width: "100%",
-        }}
+      <div
+        id={child.id}
+        className="w-full h-full border border-amber-400 m-2"
+        {...(child.type === "div"
+          ? { onDrop: handleDrop, onDragOver: handleDragOver }
+          : {})}
       >
-        <div
-          id={child.id}
-          className={`bg-amber-950 w-full h-full ${
-            Tag === "div" ? "visible" : "hidden"
-          }`}
-          // onDrop={handleDrop}
-          // onDragOver={handleDragOver}
-        >
-          {child.props.text}
-          {/* 🔁 Recursive rendering of children */}
-          {child.children?.length > 0 &&
-            child.children.map((nestedChild) => (
-              <Component key={nestedChild.id} child={nestedChild} />
-            ))}
-        </div>
-      </Tag>
+        {/* Render actual tag */}
+        <child.type className="text-white text-sm">
+          {child.props?.text}
+        </child.type>
+
+        {/* Recursively render children */}
+        {child.children?.map((nestedChild) => (
+          <Component
+            key={nestedChild.id}
+            child={nestedChild}
+            handleDrop={handleDrop}
+            handleDragOver={handleDragOver}
+          />
+        ))}
+      </div>
     </Resizable>
   );
 };
