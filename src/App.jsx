@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Component from "./Component";
 
 const App = () => {
@@ -8,7 +9,7 @@ const App = () => {
       id: "root",
       children: [
         {
-          id: Math.random(),
+          id: uuidv4(),
           type: "div",
           props: { text: "I'm the Second" },
           children: [],
