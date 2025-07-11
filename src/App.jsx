@@ -1,13 +1,9 @@
-import { Resizable } from "re-resizable";
 import { useState } from "react";
+import dummyData from "../dummyData";
+import Component from "./Component";
 const App = () => {
   let draggedElement = null;
-  const [data, setData] = useState([
-    {
-      id: "root",
-      children: [],
-    },
-  ]);
+  const [data, setData] = useState(dummyData);
 
   const handleDragStart = (event) => {
     draggedElement = event.target;
@@ -15,7 +11,19 @@ const App = () => {
 
   const handleDrop = (event) => {
     event.preventDefault();
+    event.stopPropagation();
     const draggedElementDropped = event.currentTarget; // get where the element is dropped
+    console.log(draggedElementDropped);
+    // setData((prev) =>
+    //    prev.map((item) =>
+    //      item.id === "root"
+    //        ? {
+    //            ...item,
+    //            children:
+    //          }
+    //        : item
+    //    )
+    //  );
     setData((prev) =>
       prev.map((item) =>
         item.id === "root"
@@ -44,7 +52,6 @@ const App = () => {
           : item
       )
     );
-    // console.log("Dropped:", draggedElement, "on", draggedElementDropped);
   };
 
   const handleDragOver = (event) => {
@@ -70,68 +77,7 @@ const App = () => {
         {data
           .find((item) => item.id === "root")
           ?.children.map((child) => {
-            console.log(child.style);
-            const Tag = child.type; // like 'div', 'p', 'button'
-            return (
-              <Resizable
-                key={child.id}
-                enable={{
-                  top: true,
-                  right: true,
-                  bottom: true,
-                  left: true,
-                  topRight: true,
-                  bottomRight: true,
-                  bottomLeft: true,
-                  topLeft: true,
-                }}
-                size={{
-                  width:
-                    typeof child.style.width === "number"
-                      ? `${child.style.width}px`
-                      : child.style.width,
-                  height:
-                    typeof child.style.height === "number"
-                      ? `${child.style.height}px`
-                      : child.style.height,
-                }}
-                onResizeStop={(e, direction, ref, d) => {
-                  setData((prevData) =>
-                    prevData.map((item) =>
-                      item.id === "root"
-                        ? {
-                            ...item,
-                            children: item.children.map((c) =>
-                              c.id === child.id
-                                ? {
-                                    ...c,
-                                    style: {
-                                      ...c.style,
-                                      width: ref.style.width,
-                                      height: ref.style.height,
-                                    },
-                                  }
-                                : c
-                            ),
-                          }
-                        : item
-                    )
-                  );
-                }}
-              >
-                <Tag
-                  style={{
-                    border: "1px dashed #ccc",
-                    margin: "5px",
-                    height: "100%",
-                    width: "100%",
-                  }}
-                  className="p-2"
-                >
-                  {child.props.text}
-                </Tag>
-              </Resizable>
-            );
+            return <Component child={child} />;
           })}
       </div>
     </div>
