@@ -11,7 +11,18 @@ const dummyData = [
             id: Math.random(),
             type: "div",
             props: { text: "I'm inside div" },
-            children: [],
+            children: [
+              {
+                id: Math.random(),
+                type: "div",
+                props: { text: "I'm the inside div inside div" },
+                children: [],
+                style: {
+                  height: "20px",
+                  width: "100%",
+                },
+              },
+            ],
             style: {
               height: "40px",
               width: "60%",

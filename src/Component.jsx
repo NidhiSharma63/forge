@@ -1,7 +1,7 @@
 import { Resizable } from "re-resizable";
-const Component = ({ child, handleDrop, handleDragOver }) => {
+
+const Component = ({ child, onDrop, handleDragOver }) => {
   const Tag = child.type;
-  console.log(Tag, "Tag");
   return (
     <Resizable
       key={child.id}
@@ -16,28 +16,26 @@ const Component = ({ child, handleDrop, handleDragOver }) => {
             : child.style?.height || "100%",
       }}
     >
-      <div
+      <Tag
         id={child.id}
-        className="w-full h-full border border-amber-400 m-2"
-        {...(child.type === "div"
-          ? { onDrop: handleDrop, onDragOver: handleDragOver }
-          : {})}
+        className={`w-full h-full  ${
+          child.type === "div" ? "bg-amber-600" : ""
+        } m-2`}
+        onDrop={child.type === "div" ? onDrop : undefined}
+        onDragOver={child.type === "div" ? handleDragOver : undefined}
       >
-        {/* Render actual tag */}
-        <child.type className="text-white text-sm">
-          {child.props?.text}
-        </child.type>
+        {child.props?.text}
 
         {/* Recursively render children */}
         {child.children?.map((nestedChild) => (
           <Component
             key={nestedChild.id}
             child={nestedChild}
-            handleDrop={handleDrop}
+            handleDrop={onDrop}
             handleDragOver={handleDragOver}
           />
         ))}
-      </div>
+      </Tag>
     </Resizable>
   );
 };
