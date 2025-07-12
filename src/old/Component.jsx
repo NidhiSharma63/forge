@@ -20,7 +20,7 @@ const Component = ({ child, onDrop, handleDragOver }) => {
         id={child.id}
         className={`w-full h-full  ${
           child.type === "div" ? "bg-amber-600" : ""
-        } m-2`}
+        }`}
         onDrop={child.type === "div" ? onDrop : undefined}
         onDragOver={child.type === "div" ? handleDragOver : undefined}
       >
