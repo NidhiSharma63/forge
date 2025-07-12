@@ -7,7 +7,7 @@ const Canvas = () => {
           is="div"
           canvas
           style={{
-            minHeight: 200,
+            height: "100%",
             padding: 10,
             border: "1px dashed gray",
           }}
