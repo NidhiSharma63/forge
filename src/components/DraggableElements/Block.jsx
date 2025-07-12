@@ -1,9 +1,9 @@
 import { useNode } from "@craftjs/core";
-const Video = () => {
+const Block = () => {
   const {
     connectors: { connect, drag },
   } = useNode();
-  return <div ref={(ref) => connect(drag(ref))}>Video</div>;
+  return <div ref={(ref) => connect(drag(ref))}>Block</div>;
 };
 
-export default Video;
+export default Block;
