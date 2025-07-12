@@ -3,7 +3,11 @@ const Text = () => {
   const {
     connectors: { connect, drag },
   } = useNode();
-  return <div ref={(ref) => connect(drag(ref))}>Text</div>;
+  return (
+    <p ref={(ref) => connect(drag(ref))} contenteditable="true">
+      Text
+    </p>
+  );
 };
 
 export default Text;

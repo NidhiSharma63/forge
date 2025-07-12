@@ -3,7 +3,11 @@ const Button = () => {
   const {
     connectors: { connect, drag },
   } = useNode();
-  return <div ref={(ref) => connect(drag(ref))}>Button</div>;
+  return (
+    <button ref={(ref) => connect(drag(ref))} contenteditable="true">
+      Button
+    </button>
+  );
 };
 
 export default Button;
