@@ -4,7 +4,7 @@ export const Toolbox = () => {
   const { connectors } = useEditor();
 
   return (
-    <div>
+    <div className="border-2 border-blue-400">
       <button
         ref={(ref) => connectors.create(ref, <Button />)}
         variant="contained"
