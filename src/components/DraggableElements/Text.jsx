@@ -1,12 +1,25 @@
 import { useNode } from "@craftjs/core";
-const Text = () => {
+import ContentEditable from "react-contenteditable";
+
+export const Text = ({ text = "Text" }) => {
   const {
     connectors: { connect, drag },
+    actions: { setProp },
   } = useNode();
+
   return (
-    <p ref={(ref) => connect(drag(ref))} contentEditable={true}>
-      Text
-    </p>
+    <div ref={(ref) => connect(drag(ref))}>
+      <ContentEditable
+        html={text}
+        onChange={(e) =>
+          setProp(
+            (props) =>
+              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ""))
+          )
+        }
+        tagName="p"
+      />
+    </div>
   );
 };
 

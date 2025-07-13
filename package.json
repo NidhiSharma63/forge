@@ -13,6 +13,7 @@
     "@craftjs/core": "^0.2.12",
     "re-resizable": "^6.11.2",
     "react": "^19.1.0",
+    "react-contenteditable": "^3.3.7",
     "react-dom": "^19.1.0",
     "uuid": "^11.1.0"
   },
