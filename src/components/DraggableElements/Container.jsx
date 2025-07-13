@@ -6,11 +6,7 @@ const Container = ({ children, ...props }) => {
   } = useNode();
 
   return (
-    <div
-      ref={connect}
-      {...props}
-      className="p-2 border border-dashed border-gray-400 h-full"
-    >
+    <div ref={connect} {...props} className="h-full">
       {children}
     </div>
   );
