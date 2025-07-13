@@ -21,6 +21,9 @@ Container.craft = {
   rules: {
     canMoveIn: () => true,
   },
+  props: {
+    text: "Container",
+  },
 };
 
 export default Container;

@@ -1,4 +1,5 @@
 import {
+  Block,
   Button,
   Container,
   Image,
@@ -19,6 +20,7 @@ const App = () => {
           Video,
           Button,
           Container,
+          Block,
         }}
       >
         <div className="grid h-[calc(100vh-100px)] grid-cols-6 gap-4 w-full border-2 border-amber-950">

@@ -1,10 +1,12 @@
 import ButtonWrapper from "@/common/ButtonWrapper";
-import Button from "@/components/DraggableElements/Button";
+import {
+  Block,
+  Button,
+  Image,
+  Text,
+  Video,
+} from "@/components/DraggableElements/index";
 import { useEditor } from "@craftjs/core";
-import Container from "../DraggableElements/Container";
-import Image from "../DraggableElements/Image";
-import Text from "../DraggableElements/Text";
-import Video from "../DraggableElements/Video";
 
 export const Toolbox = () => {
   const { connectors } = useEditor();
@@ -13,8 +15,8 @@ export const Toolbox = () => {
     <div className="border-2 border-blue-400">
       <h1 className="text-sm mb-3 text-center">Elements</h1>
       <div className="flex flex-col gap-4">
-        <ButtonWrapper ref={(ref) => connectors.create(ref, <Container />)}>
-          Container
+        <ButtonWrapper ref={(ref) => connectors.create(ref, <Block />)}>
+          Block
         </ButtonWrapper>
         <ButtonWrapper ref={(ref) => connectors.create(ref, <Text />)}>
           Text
