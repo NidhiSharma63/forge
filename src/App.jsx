@@ -8,6 +8,7 @@ import {
 } from "@/components/DraggableElements/index";
 import { Toolbox } from "@/components/elementsPanel/ElementsPanel";
 import { Editor, Element, Frame } from "@craftjs/core";
+import BlockSetting from "./components/StyleSettings/BlockSetting";
 
 const App = () => {
   return (
@@ -35,7 +36,10 @@ const App = () => {
               />
             </Frame>
           </div>
-          <div className="text-3xl border-2 border-blue-400">01</div>
+          <div className=" border-2 border-blue-400">
+            <p className="text-center">Settings</p>
+            <BlockSetting />
+          </div>
         </div>
       </Editor>
     </div>
