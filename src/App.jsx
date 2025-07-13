@@ -37,7 +37,7 @@ const App = () => {
             </Frame>
           </div>
           <div className=" border-2 border-blue-400">
-            <p className="text-center">Settings</p>
+            <p className=" text-sm text-center">Settings</p>
             <BlockSetting />
           </div>
         </div>
