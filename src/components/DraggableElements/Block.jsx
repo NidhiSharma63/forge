@@ -1,4 +1,6 @@
-import { useNode } from "@craftjs/core";
+import { Container } from "@/components/DraggableElements/index";
+import { Element, useNode } from "@craftjs/core";
+import { v4 as uuidv4 } from "uuid";
 const Block = () => {
   const {
     connectors: { connect, drag },
@@ -23,7 +25,9 @@ const Block = () => {
         width,
         borderRadius,
       }}
-    />
+    >
+      <Element is={Container} canvas id={uuidv4()}></Element>
+    </div>
   );
 };
 
