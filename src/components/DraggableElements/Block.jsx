@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 const Block = ({ height, width, border, borderRadius, ...props }) => {
   const {
     connectors: { connect, drag },
-    id,
-    actions,
+    // id,
+    // actions,
   } = useNode((state) => ({
     selected: state.events.selected,
     dragged: state.events.dragged,
@@ -14,10 +14,10 @@ const Block = ({ height, width, border, borderRadius, ...props }) => {
   return (
     <div
       ref={(ref) => connect(drag(ref))}
-      onClick={(e) => {
-        e.stopPropagation(); // prevent event bubbling
-        actions.selectNode(id);
-      }}
+      // onClick={(e) => {
+      //   e.stopPropagation(); // prevent event bubbling
+      //   // actions.selectNode(id);
+      // }}
       style={{
         height,
         width,

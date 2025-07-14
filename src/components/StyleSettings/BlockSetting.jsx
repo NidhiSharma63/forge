@@ -1,7 +1,7 @@
 import Input from "@/common/NumberInput";
 import DisplayIcon from "@/components/StyleSettings/DisplayIcon";
 import SpacingControl from "@/components/StyleSettings/SpacingControl";
-import { useNode } from "@craftjs/core";
+import useBlockSetting from "@/hooks/useBlockSetting";
 import {
   AlignHorizontalJustifyCenter,
   AlignHorizontalJustifyEnd,
@@ -12,23 +12,28 @@ import {
   AlignVerticalJustifyStart,
 } from "lucide-react";
 
-const BlockSetting = (props) => {
-
+const BlockSetting = () => {
   const {
-    actions: { setProp },
-    height,
-    width,
-  } = useNode((node) => ({
-    width: node.data.props.width,
-    height: node.data.props.height,
-  }));
-  console.log(height, width);
+    marginValue,
+    paddingValue,
+    handleChangeValueForPadding,
+    handleChangeValueForMargin,
+  } = useBlockSetting();
+  console.log(marginValue, "margin");
   return (
     <div className="mt-4">
       {/* maring */}
-      <SpacingControl heading={"Margin"} />
+      <SpacingControl
+        heading={"Margin"}
+        onChange={handleChangeValueForMargin}
+        value={marginValue}
+      />
       {/* padding */}
-      <SpacingControl heading={"Padding"} />
+      <SpacingControl
+        heading={"Padding"}
+        onChange={handleChangeValueForPadding}
+        value={paddingValue}
+      />
       {/* disply */}
       <div>
         <div className="mt-4">
