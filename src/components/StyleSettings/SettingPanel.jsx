@@ -11,13 +11,12 @@ const SettingsPanel = () => {
 
   // console.log("Selected Node ID:", selectedNodeId);
   // console.log("Selected Node:", selectedNode);
-  console.log("Node name:", selectedNode?.data?.name);
-  console.log("Related settings:", selectedNode?.related?.settings);
+  // console.log("Node name:", selectedNode?.data?.name);
+  // console.log("Related settings:", selectedNode?.related?.settings);
   const Settings = selectedNode?.related?.settings;
 
   return (
-    <div className="p-4 border-t bg-white">
-      <p className="text-sm font-semibold mb-2 text-center">Settings</p>
+    <>
       {Settings ? (
         <Settings />
       ) : (
@@ -25,7 +24,7 @@ const SettingsPanel = () => {
           No component selected
         </p>
       )}
-    </div>
+    </>
   );
 };
 
