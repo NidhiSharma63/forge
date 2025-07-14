@@ -3,39 +3,56 @@ import { useState } from "react";
 const useBlockSetting = () => {
   const {
     actions: { setProp },
+    props, // access default values
   } = useNode((node) => ({
-    width: node.data.props.width,
-    height: node.data.props.height,
+    props: node.data.props,
   }));
 
   const [marginValue, setMarginValue] = useState({
-    Top: 0,
-    Bottom: 0,
-    Left: 0,
-    Right: 0,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   });
 
   const [paddingValue, setPaddingValue] = useState({
-    // paddingTop: 0,
-    // paddingBottom: 0,
-    // paddingLeft: 0,
-    // paddingRight: 0,
-    Top: 0,
-    Bottom: 0,
-    Left: 0,
-    Right: 0,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   });
 
+  // function handleChangeValueForMargin(event) {
+  //   const name = event.target.name;
+  //   const value = event.target.value;
+  //   setMarginValue((prev) => {
+  //     return {
+  //       ...prev,
+  //       [name]: value,
+  //     };
+  //   });
+
+  //   // setProp((props) => (props.height = value));
+
+  //   setProp((props) => {
+  //     console.log("value changing");
+  //     props.marginTop = `${value}px`; // ✅ this sets marginTop, marginBottom, etc
+  //   });
+  // }
+
   function handleChangeValueForMargin(event) {
-    const name = event.target.name;
+    const name = event.target.name; // "top"
     const value = event.target.value;
-    setMarginValue((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
+
+    setMarginValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    const capitalized = name.charAt(0).toUpperCase() + name.slice(1); // "Top"
+    setProp((props) => {
+      props[`margin${capitalized}`] = `${value}px`; // marginTop = "20px"
     });
-    setProp((props) => (props[`margin${name}`] = value));
   }
 
   function handleChangeValueForPadding(event) {

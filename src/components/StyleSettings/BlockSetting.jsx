@@ -19,7 +19,6 @@ const BlockSetting = () => {
     handleChangeValueForPadding,
     handleChangeValueForMargin,
   } = useBlockSetting();
-  console.log(marginValue, "margin");
   return (
     <div className="mt-4">
       {/* maring */}
