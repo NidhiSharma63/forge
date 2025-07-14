@@ -1,5 +1,6 @@
 import {
   Block,
+  BlockContainer,
   Button,
   Container,
   Image,
@@ -7,8 +8,8 @@ import {
   Video,
 } from "@/components/DraggableElements/index";
 import { Toolbox } from "@/components/elementsPanel/ElementsPanel";
+import SettingsPanel from "@/components/StyleSettings/SettingPanel";
 import { Editor, Element, Frame } from "@craftjs/core";
-import BlockSetting from "./components/StyleSettings/BlockSetting";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           Button,
           Container,
           Block,
+          BlockContainer,
         }}
       >
         <div className="grid h-[calc(100vh-100px)] grid-cols-6 gap-4 w-full border-2 border-amber-950">
@@ -38,7 +40,7 @@ const App = () => {
           </div>
           <div className=" border-2 border-blue-400">
             <p className=" text-sm text-center">Settings</p>
-            <BlockSetting />
+            <SettingsPanel />
           </div>
         </div>
       </Editor>
@@ -47,3 +49,5 @@ const App = () => {
 };
 
 export default App;
+
+

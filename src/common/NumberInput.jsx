@@ -1,7 +1,9 @@
+import capitalizeFirst from "@/utils/CaptializeFirstLetter";
+
 const Input = ({ name, value, onChange }) => {
   return (
     <div className="flex gap-1 text-sm">
-      <label for={name}>{name.toUpperCase()} </label>:{" "}
+      <label for={name}>{capitalizeFirst(name)} </label>:{" "}
       <input
         type={"number"}
         id={name}
