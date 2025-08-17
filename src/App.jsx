@@ -1,44 +1,11 @@
 import { Puck } from "@measured/puck";
 import "@measured/puck/puck.css";
-import React from "react";
+import { GridConfig } from "./puckComponents/Grid";
 
 // Create Puck component config
 const config = {
   components: {
-    Grid: {
-      fields: {
-        columns: {
-          type: "number",
-          label: "Columns",
-          min: 1,
-          max: 6,
-          defaultValue: 2,
-        },
-        gap: { type: "number", label: "Gap", defaultValue: 8 },
-        innerHeight: {
-          type: "number",
-          label: "Inner Height",
-          defaultValue: 100,
-        },
-      },
-      render: ({ children, columns, gap, innerHeight }) => {
-        return (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: `repeat(${columns}, 1fr)`,
-              gap,
-              height: `${innerHeight}px`,
-            }}
-            className="p-4 border rounded"
-          >
-            {React.Children.map(children, (child) => (
-              <div className="border bg-gray-50 p-2">{child}</div>
-            ))}
-          </div>
-        );
-      },
-    },
+    Grid: GridConfig,
     HeadingBlock: {
       fields: {
         children: {
