@@ -28,7 +28,7 @@ const App = () => {
       >
         <div className="grid h-[calc(100vh-100px)] grid-cols-6 gap-4 w-full border-2 border-amber-950">
           <Toolbox />
-          <div className="col-span-4 border-2 border-amber-400">
+          <div className="col-span-4 border-2">
             <Frame>
               <Element
                 is={Container}
@@ -36,6 +36,7 @@ const App = () => {
                 id="root-container"
                 // style={{ height: "100%", border: "1px dashed grey" }}
               />
+              {/* <Element is={Block} canvas id="root" /> */}
             </Frame>
           </div>
           <div className=" border-2 border-blue-400">

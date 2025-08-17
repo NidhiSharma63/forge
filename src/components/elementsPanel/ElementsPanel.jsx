@@ -7,6 +7,7 @@ import {
   Video,
 } from "@/components/DraggableElements/index";
 import { useEditor } from "@craftjs/core";
+import BlockContainer from "../DraggableElements/BlockContainer";
 
 export const Toolbox = () => {
   const { connectors } = useEditor();
@@ -17,6 +18,11 @@ export const Toolbox = () => {
       <div className="flex flex-col gap-4">
         <ButtonWrapper ref={(ref) => connectors.create(ref, <Block />)}>
           Block
+        </ButtonWrapper>
+        <ButtonWrapper
+          ref={(ref) => connectors.create(ref, <BlockContainer />)}
+        >
+          BlockContainer
         </ButtonWrapper>
         <ButtonWrapper ref={(ref) => connectors.create(ref, <Text />)}>
           Text

@@ -1,10 +1,11 @@
 import BlockSetting from "@/components/StyleSettings/BlockSetting";
 import { useNode } from "@craftjs/core";
+import { v4 as uuidv4 } from "uuid";
 
 const BlockContainer = ({
   children,
   marginTop,
-  height,
+  minHeight,
   width,
   border,
   ...props
@@ -19,26 +20,29 @@ const BlockContainer = ({
       ref={connect}
       {...props}
       style={{
-        height,
+        minHeight,
         width,
         border,
-        marginTop: marginTop,
+        marginTop,
       }}
       className=""
     >
-      {children}
+      <Element is={<div></div>} canvas id={uuidv4()}>
+        {children}
+      </Element>
+      ;
     </div>
   );
 };
 
 BlockContainer.craft = {
-  displayName: "Container",
+  displayName: "BlockContainer",
   rules: {
     canMoveIn: () => true,
   },
   props: {
-    text: "Container",
-    height: "100px",
+    // text: "",
+    minHeight: "100px",
     width: "100%",
     border: "2px solid black",
   },
