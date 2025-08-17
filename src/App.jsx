@@ -1,11 +1,13 @@
 import { Puck } from "@measured/puck";
 import "@measured/puck/puck.css";
+import { CardConfig } from "./puckComponents/Card";
 import { GridConfig } from "./puckComponents/Grid";
 
 // Create Puck component config
 const config = {
   components: {
     Grid: GridConfig,
+    Card: CardConfig,
     HeadingBlock: {
       fields: {
         children: {
