@@ -5,6 +5,7 @@ import { FlexContainerConfig } from "./puckComponents/Flex";
 import { FlexItemConfig } from "./puckComponents/FlexItem";
 import { GridConfig } from "./puckComponents/Grid";
 import { ImageBlockConfig } from "./puckComponents/Image";
+import { SpacerConfig } from "./puckComponents/Spacer";
 // Create Puck component config
 const config = {
   components: {
@@ -13,6 +14,7 @@ const config = {
     Image: ImageBlockConfig,
     Flex: FlexContainerConfig,
     "Flex Item": FlexItemConfig,
+    Spacer: SpacerConfig,
     HeadingBlock: {
       fields: {
         children: {
