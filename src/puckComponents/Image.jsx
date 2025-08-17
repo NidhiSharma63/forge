@@ -43,14 +43,16 @@ const ImageBlock = ({
       style={{
         display: "flex",
         justifyContent: align,
+        width,
+        height,
       }}
     >
       {src ? (
         <img
           src={src}
           alt={alt}
-          width={width}
-          height={height}
+          width={"100%"}
+          height={"100%"}
           style={{
             borderRadius,
             boxShadow:
