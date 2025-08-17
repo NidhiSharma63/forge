@@ -6,15 +6,13 @@ const Card = ({ spanCol, spanRow, content: Content, puck }) => {
         gridColumn: `span ${spanCol}`,
         gridRow: `span ${spanRow}`,
       }}
-      className="flex flex-col items-center justify-start border bg-white shadow rounded p-4 min-h-[100px]"
+      className="flex flex-col items-center justify-start border bg-white shadow rounded min-h-[100px]"
     >
       <div className="w-full flex-1">
         {Content ? (
           <Content />
         ) : (
-          <div className="border border-dashed bg-gray-50 text-gray-400 text-center p-2">
-            Drop components here
-          </div>
+          <div className="border border-dashed bg-gray-50 text-black text-center"></div>
         )}
       </div>
     </div>
