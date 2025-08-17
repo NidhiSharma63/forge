@@ -1,5 +1,6 @@
 import { Puck } from "@measured/puck";
 import "@measured/puck/puck.css";
+import { ButtonConfig } from "./puckComponents/Button";
 import { CardConfig } from "./puckComponents/Card";
 import { FlexContainerConfig } from "./puckComponents/Flex";
 import { FlexItemConfig } from "./puckComponents/FlexItem";
@@ -15,6 +16,7 @@ const config = {
     Flex: FlexContainerConfig,
     "Flex Item": FlexItemConfig,
     Spacer: SpacerConfig,
+    Button: ButtonConfig,
     HeadingBlock: {
       fields: {
         children: {
