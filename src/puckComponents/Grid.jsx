@@ -31,7 +31,7 @@ const GridConfig = {
       label: "Color",
       defaultValue: "#fff",
     },
-    // 👇 ab slot define karna hoga
+
     content: {
       type: "slot",
     },

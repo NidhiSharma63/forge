@@ -1,6 +1,7 @@
 import { Puck } from "@measured/puck";
 import "@measured/puck/puck.css";
 import { CardConfig } from "./puckComponents/Card";
+import { FlexContainerConfig } from "./puckComponents/Flex";
 import { GridConfig } from "./puckComponents/Grid";
 import { ImageBlockConfig } from "./puckComponents/Image";
 
@@ -10,6 +11,7 @@ const config = {
     Grid: GridConfig,
     Card: CardConfig,
     Image: ImageBlockConfig,
+    Flex: FlexContainerConfig,
     HeadingBlock: {
       fields: {
         children: {

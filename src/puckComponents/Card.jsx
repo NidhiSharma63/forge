@@ -1,20 +1,28 @@
-const Card = ({ text, spanCol, spanRow, puck }) => {
+const Card = ({ spanCol, spanRow, content: Content, puck }) => {
   return (
     <div
-      ref={puck.dragRef} // draggable
+      ref={puck.dragRef}
       style={{
         gridColumn: `span ${spanCol}`,
         gridRow: `span ${spanRow}`,
       }}
-      className="flex items-center justify-center border bg-white shadow rounded p-4"
+      className="flex flex-col items-center justify-start border bg-white shadow rounded p-4 min-h-[100px]"
     >
-      {text || "Card"}
+      <div className="w-full flex-1">
+        {Content ? (
+          <Content />
+        ) : (
+          <div className="border border-dashed bg-gray-50 text-gray-400 text-center p-2">
+            Drop components here
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
 const CardConfig = {
-  inline: true, // inline => no wrapper
+  inline: true,
   fields: {
     text: { type: "text", label: "Text", defaultValue: "Card" },
     spanCol: {
@@ -31,13 +39,14 @@ const CardConfig = {
       max: 6,
       defaultValue: 1,
     },
+    content: { type: "slot" }, // 👈 same as Grid
   },
   defaultProps: {
     text: "Card",
     spanCol: 1,
     spanRow: 1,
   },
-  render: ({ puck, ...props }) => <Card {...props} puck={puck} />,
+  render: ({ content, ...props }) => <Card {...props} content={content} />,
 };
 
 export { Card, CardConfig };
