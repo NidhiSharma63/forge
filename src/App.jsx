@@ -54,13 +54,20 @@ const config = {
         fontWeight: {
           type: "select",
           label: "Weight",
-          options: ["normal", "bold", "lighter"],
-          defaultValue: "bold",
+          options: [
+            { label: "Normal", value: "normal" },
+            { label: "Lighter", value: "lighter" },
+            { label: "Bold", value: "bold" },
+          ],
         },
         textAlign: {
           type: "select",
           label: "Align",
-          options: ["left", "center", "right"],
+          options: [
+            { label: "Left", value: "left" },
+            { label: "Center", value: "center" },
+            { label: "Right", value: "right" },
+          ],
           defaultValue: "left",
         },
         color: {
