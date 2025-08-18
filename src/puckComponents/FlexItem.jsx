@@ -1,3 +1,4 @@
+// FlexItem.jsx
 const FlexItem = ({
   grow,
   shrink,
@@ -7,7 +8,8 @@ const FlexItem = ({
   padding,
   background,
   radius,
-  border,
+  borderWidth,
+  borderColor,
   width,
   height,
   puck,
@@ -23,21 +25,30 @@ const FlexItem = ({
         order: order ?? 0,
         alignSelf: alignSelf || "auto",
         padding: padding ? `${padding}px` : undefined,
-        background,
+        background: background || "transparent", // ✅ always apply bg
         borderRadius: radius ? `${radius}px` : undefined,
-        border: border || "1px solid #e5e7eb",
+        border:
+          borderWidth && borderWidth > 0
+            ? `${borderWidth}px solid ${borderColor || "#000"}`
+            : "none",
         boxSizing: "border-box",
         minWidth: 0,
-        width: width
-          ? typeof width === "number"
+
+        // ✅ handle width as text or number
+        width:
+          typeof width === "number"
             ? `${width}px`
-            : width
-          : undefined,
-        height: height
-          ? typeof height === "number"
+            : width && width.trim() !== ""
+            ? width
+            : undefined,
+
+        // ✅ handle height properly
+        height:
+          typeof height === "number"
             ? `${height}px`
-            : height
-          : undefined,
+            : height && height.trim() !== ""
+            ? height
+            : undefined,
       }}
     >
       <Content />
@@ -46,7 +57,7 @@ const FlexItem = ({
 };
 
 const FlexItemConfig = {
-  inline: true, // so the wrapper is the actual styled node
+  inline: true,
   fields: {
     // Flex behavior
     grow: { type: "number", label: "Flex Grow", defaultValue: 0 },
@@ -75,15 +86,24 @@ const FlexItemConfig = {
     padding: { type: "number", label: "Padding", defaultValue: 12 },
     background: { type: "text", label: "Background", defaultValue: "#ffffff" },
     radius: { type: "number", label: "Border Radius", defaultValue: 8 },
-    border: {
-      type: "text",
-      label: "Border CSS",
-      defaultValue: "1px solid #e5e7eb",
+
+    borderWidth: {
+      type: "number",
+      label: "Border Width (px)",
+      defaultValue: 0,
+      min: 0,
+      max: 10,
     },
+    borderColor: {
+      type: "text",
+      label: "Border Color",
+      defaultValue: "#000000",
+    },
+
     width: { type: "text", label: "Width (px, %, auto)", defaultValue: "" },
     height: { type: "text", label: "Height (px, %, auto)", defaultValue: "" },
 
-    // Slot: put any component inside this item
+    // Slot
     content: { type: "slot" },
   },
 
@@ -96,9 +116,10 @@ const FlexItemConfig = {
     padding: 12,
     background: "#ffffff",
     radius: 8,
-    border: "1px solid #e5e7eb",
-    width: 200,
-    height: 200,
+    borderWidth: 0,
+    borderColor: "#000000",
+    width: "200px",
+    height: "200px",
   },
 
   render: ({ puck, content, ...props }) => (

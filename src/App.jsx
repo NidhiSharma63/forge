@@ -6,6 +6,7 @@ import { FlexContainerConfig } from "./puckComponents/Flex";
 import { FlexItemConfig } from "./puckComponents/FlexItem";
 import { GridConfig } from "./puckComponents/Grid";
 import { ImageBlockConfig } from "./puckComponents/Image";
+import { ParagraphConfig } from "./puckComponents/Paragraph";
 import { SpacerConfig } from "./puckComponents/Spacer";
 // Create Puck component config
 const config = {
@@ -77,16 +78,7 @@ const config = {
         );
       },
     },
-    ParagraphBlock: {
-      fields: {
-        children: {
-          type: "text",
-        },
-      },
-      render: ({ children }) => {
-        return <p>{children || "Lorem ipsum dolor sit amet."}</p>;
-      },
-    },
+    ParagraphBlock: ParagraphConfig,
   },
 };
 

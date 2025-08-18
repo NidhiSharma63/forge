@@ -1,3 +1,4 @@
+// FlexContainer.jsx
 const FlexContainer = ({
   direction,
   wrap,
@@ -8,7 +9,7 @@ const FlexContainer = ({
   rowGap,
   columnGap,
   padding,
-  background,
+  backgroundColor,
   minHeight,
   width,
   content: Content,
@@ -24,7 +25,7 @@ const FlexContainer = ({
     rowGap: rowGap ?? undefined,
     columnGap: columnGap ?? undefined,
     padding: padding ? `${padding}px` : undefined,
-    background,
+    backgroundColor, // ✅ background color property
     minHeight: minHeight ? `${minHeight}px` : undefined,
     width: width || "100%",
     boxSizing: "border-box",
@@ -34,7 +35,6 @@ const FlexContainer = ({
 };
 
 const FlexContainerConfig = {
-  // Main layout controls
   fields: {
     direction: {
       type: "select",
@@ -109,7 +109,11 @@ const FlexContainerConfig = {
     },
 
     // Appearance
-    background: { type: "text", label: "Background", defaultValue: "#ffffff" },
+    backgroundColor: {
+      type: "text",
+      label: "Background Color",
+      defaultValue: "#ffffff",
+    },
 
     // Slot for children
     content: { type: "slot" },
@@ -125,7 +129,7 @@ const FlexContainerConfig = {
     rowGap: 0,
     columnGap: 0,
     padding: 16,
-    background: "#ffffff",
+    backgroundColor: "#ffffff", // ✅ default bg
     minHeight: 200,
     width: "100%",
   },
