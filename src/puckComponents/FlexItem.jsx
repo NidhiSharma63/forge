@@ -25,42 +25,35 @@ const FlexItem = ({
   puck,
   content: Content,
 }) => {
+  console.log("FlexItem", justifyContent);
   return (
     <div
       ref={puck?.dragRef}
       style={{
-        display: "flex", // ✅ Flex container
-        flexDirection: direction || "row", // default row
-        justifyContent: justifyContent || "flex-start",
+        display: "flex",
+        flexDirection: direction || "row",
+        justifyContent: "center",
         alignItems: alignItems || "stretch",
-
         flexGrow: grow ?? 0,
         flexShrink: shrink ?? 1,
         flexBasis: basis || "auto",
         order: order ?? 0,
         alignSelf: alignSelf || "auto",
-
-        // ✅ Individual padding
         paddingTop: paddingTop ? `${paddingTop}px` : undefined,
         paddingBottom: paddingBottom ? `${paddingBottom}px` : undefined,
         paddingLeft: paddingLeft ? `${paddingLeft}px` : undefined,
         paddingRight: paddingRight ? `${paddingRight}px` : undefined,
-
-        // ✅ Individual margin
         marginTop: marginTop ? `${marginTop}px` : undefined,
         marginBottom: marginBottom ? `${marginBottom}px` : undefined,
         marginLeft: marginLeft ? `${marginLeft}px` : undefined,
         marginRight: marginRight ? `${marginRight}px` : undefined,
-
         background: background || "transparent",
         borderRadius: radius ? `${radius}px` : undefined,
         border:
           borderWidth && borderWidth > 0
             ? `${borderWidth}px solid ${borderColor || "#000"}`
             : "none",
-
         boxSizing: "border-box",
-
         width: width && width.trim() !== "" ? width : "100%",
         height: height && height.trim() !== "" ? height : "100%",
       }}
@@ -97,42 +90,42 @@ const FlexItemConfig = {
     },
 
     // Flex container behavior
-    direction: {
-      type: "select",
-      label: "Flex Direction",
-      options: [
-        { label: "row", value: "row" },
-        { label: "row-reverse", value: "row-reverse" },
-        { label: "column", value: "column" },
-        { label: "column-reverse", value: "column-reverse" },
-      ],
-      defaultValue: "row",
-    },
-    justifyContent: {
-      type: "select",
-      label: "Justify Content",
-      options: [
-        { label: "flex-start", value: "flex-start" },
-        { label: "center", value: "center" },
-        { label: "flex-end", value: "flex-end" },
-        { label: "space-between", value: "space-between" },
-        { label: "space-around", value: "space-around" },
-        { label: "space-evenly", value: "space-evenly" },
-      ],
-      defaultValue: "flex-start",
-    },
-    alignItems: {
-      type: "select",
-      label: "Align Items",
-      options: [
-        { label: "stretch", value: "stretch" },
-        { label: "flex-start", value: "flex-start" },
-        { label: "center", value: "center" },
-        { label: "flex-end", value: "flex-end" },
-        { label: "baseline", value: "baseline" },
-      ],
-      defaultValue: "stretch",
-    },
+    // direction: {
+    //   type: "select",
+    //   label: "Flex Direction",
+    //   options: [
+    //     { label: "row", value: "row" },
+    //     { label: "row-reverse", value: "row-reverse" },
+    //     { label: "column", value: "column" },
+    //     { label: "column-reverse", value: "column-reverse" },
+    //   ],
+    //   defaultValue: "row",
+    // },
+    // justifyContent: {
+    //   type: "select",
+    //   label: "Justify Content",
+    //   options: [
+    //     { label: "flex-start", value: "flex-start" },
+    //     { label: "center", value: "center" },
+    //     { label: "flex-end", value: "flex-end" },
+    //     { label: "space-between", value: "space-between" },
+    //     { label: "space-around", value: "space-around" },
+    //     { label: "space-evenly", value: "space-evenly" },
+    //   ],
+    //   defaultValue: "flex-start",
+    // },
+    // alignItems: {
+    //   type: "select",
+    //   label: "Align Items",
+    //   options: [
+    //     { label: "stretch", value: "stretch" },
+    //     { label: "flex-start", value: "flex-start" },
+    //     { label: "center", value: "center" },
+    //     { label: "flex-end", value: "flex-end" },
+    //     { label: "baseline", value: "baseline" },
+    //   ],
+    //   defaultValue: "stretch",
+    // },
 
     // Padding
     paddingTop: { type: "number", label: "Padding Top", defaultValue: 0 },
