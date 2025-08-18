@@ -1,5 +1,6 @@
-// Paragraph.jsx
-const Paragraph = ({
+// Heading.jsx
+const Heading = ({
+  type, // h1, h2, h3, ...
   text,
   fontSize,
   fontWeight,
@@ -14,17 +15,19 @@ const Paragraph = ({
   width,
   puck,
 }) => {
-  const defaultText = "This is a sample paragraph. You can edit this text.";
+  const defaultText = "This is a sample heading.";
+
+  const Tag = type || "h1"; // dynamic heading tag
 
   return (
-    <p
+    <Tag
       ref={puck?.dragRef}
       style={{
-        fontSize: fontSize ? `${fontSize}px` : "16px",
-        fontWeight: fontWeight || "400",
-        color: color || "#374151", // Tailwind gray-700
+        fontSize: fontSize ? `${fontSize}px` : "24px",
+        fontWeight: fontWeight || "700",
+        color: color || "#111827", // Tailwind gray-900
         textAlign: textAlign || "left",
-        lineHeight: lineHeight || "1.6",
+        lineHeight: lineHeight || "1.3",
         letterSpacing: letterSpacing || "normal",
         marginTop: marginTop ? `${marginTop}px` : "0px",
         marginBottom: marginBottom ? `${marginBottom}px` : "0px",
@@ -37,24 +40,37 @@ const Paragraph = ({
       className="cursor-text"
     >
       {text || defaultText}
-    </p>
+    </Tag>
   );
 };
 
-const ParagraphConfig = {
+const HeadingConfig = {
   inline: true,
   fields: {
+    type: {
+      type: "select",
+      label: "Heading Type",
+      options: [
+        { label: "H1", value: "h1" },
+        { label: "H2", value: "h2" },
+        { label: "H3", value: "h3" },
+        { label: "H4", value: "h4" },
+        { label: "H5", value: "h5" },
+        { label: "H6", value: "h6" },
+      ],
+      defaultValue: "h1",
+    },
     text: {
       type: "text",
       label: "Text",
-      defaultValue: "This is a sample paragraph. You can edit this text.",
+      defaultValue: "This is a sample heading.",
     },
     fontSize: {
       type: "number",
       label: "Font Size (px)",
-      defaultValue: 16,
-      min: 10,
-      max: 48,
+      defaultValue: 24,
+      min: 12,
+      max: 72,
     },
     fontWeight: {
       type: "select",
@@ -65,12 +81,12 @@ const ParagraphConfig = {
         { label: "Medium", value: "500" },
         { label: "Bold", value: "700" },
       ],
-      defaultValue: "400",
+      defaultValue: "700",
     },
     color: {
       type: "text",
       label: "Text Color",
-      defaultValue: "#374151",
+      defaultValue: "#111827",
     },
     textAlign: {
       type: "select",
@@ -86,7 +102,7 @@ const ParagraphConfig = {
     lineHeight: {
       type: "number",
       label: "Line Height",
-      defaultValue: 1.6,
+      defaultValue: 1.3,
       min: 1,
       max: 3,
       step: 0.1,
@@ -133,20 +149,21 @@ const ParagraphConfig = {
     },
   },
   defaultProps: {
-    text: "This is a sample paragraph. You can edit this text.",
-    fontSize: 16,
-    fontWeight: "400",
-    color: "#374151",
+    type: "h1",
+    text: "This is a sample heading.",
+    fontSize: 24,
+    fontWeight: "700",
+    color: "#111827",
     textAlign: "left",
-    lineHeight: 1.6,
+    lineHeight: 1.3,
     letterSpacing: 0,
     marginTop: 0,
-    marginBottom: 0,
-    width: "100%",
+    marginBottom: 16,
     marginLeft: 0,
     marginRight: 0,
+    width: "100%",
   },
-  render: ({ puck, ...props }) => <Paragraph puck={puck} {...props} />,
+  render: ({ puck, ...props }) => <Heading puck={puck} {...props} />,
 };
 
-export { Paragraph, ParagraphConfig };
+export { Heading, HeadingConfig };

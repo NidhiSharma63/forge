@@ -5,6 +5,7 @@ import { CardConfig } from "./puckComponents/Card";
 import { FlexContainerConfig } from "./puckComponents/Flex";
 import { FlexItemConfig } from "./puckComponents/FlexItem";
 import { GridConfig } from "./puckComponents/Grid";
+import { HeadingConfig } from "./puckComponents/Heading";
 import { ImageBlockConfig } from "./puckComponents/Image";
 import { ParagraphConfig } from "./puckComponents/Paragraph";
 import { SpacerConfig } from "./puckComponents/Spacer";
@@ -18,66 +19,7 @@ const config = {
     "Flex Item": FlexItemConfig,
     Spacer: SpacerConfig,
     Button: ButtonConfig,
-    HeadingBlock: {
-      fields: {
-        children: {
-          type: "text",
-          label: "Text",
-          defaultValue: "Heading Block",
-        },
-        fontSize: {
-          type: "number",
-          label: "Font Size",
-          defaultValue: 24,
-        },
-        fontWeight: {
-          type: "select",
-          label: "Weight",
-          options: [
-            { label: "Normal", value: "normal" },
-            { label: "Lighter", value: "lighter" },
-            { label: "Bold", value: "bold" },
-          ],
-        },
-        textAlign: {
-          type: "select",
-          label: "Align",
-          options: [
-            { label: "Left", value: "left" },
-            { label: "Center", value: "center" },
-            { label: "Right", value: "right" },
-          ],
-          defaultValue: "left",
-        },
-        color: {
-          type: "text",
-          label: "Color",
-          defaultValue: "#000000",
-        },
-      },
-      defaultProps: {
-        children: "Heading Block",
-        fontSize: 24,
-        fontWeight: "medium",
-        textAlign: "left",
-        color: "#000000",
-      },
-
-      render: ({ children, fontSize, fontWeight, textAlign, color }) => {
-        return (
-          <h1
-            style={{
-              fontSize: `${fontSize}px`,
-              fontWeight,
-              textAlign,
-              color,
-            }}
-          >
-            {children}
-          </h1>
-        );
-      },
-    },
+    HeadingBlock: HeadingConfig,
     ParagraphBlock: ParagraphConfig,
   },
 };
