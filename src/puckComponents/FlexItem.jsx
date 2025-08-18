@@ -5,7 +5,17 @@ const FlexItem = ({
   basis,
   order,
   alignSelf,
-  padding,
+  direction,
+  justifyContent,
+  alignItems,
+  paddingTop,
+  paddingBottom,
+  paddingLeft,
+  paddingRight,
+  marginTop,
+  marginBottom,
+  marginLeft,
+  marginRight,
   background,
   radius,
   borderWidth,
@@ -19,36 +29,40 @@ const FlexItem = ({
     <div
       ref={puck?.dragRef}
       style={{
+        display: "flex", // ✅ Flex container
+        flexDirection: direction || "row", // default row
+        justifyContent: justifyContent || "flex-start",
+        alignItems: alignItems || "stretch",
+
         flexGrow: grow ?? 0,
         flexShrink: shrink ?? 1,
         flexBasis: basis || "auto",
         order: order ?? 0,
         alignSelf: alignSelf || "auto",
-        padding: padding ? `${padding}px` : undefined,
-        background: background || "transparent", // ✅ always apply bg
+
+        // ✅ Individual padding
+        paddingTop: paddingTop ? `${paddingTop}px` : undefined,
+        paddingBottom: paddingBottom ? `${paddingBottom}px` : undefined,
+        paddingLeft: paddingLeft ? `${paddingLeft}px` : undefined,
+        paddingRight: paddingRight ? `${paddingRight}px` : undefined,
+
+        // ✅ Individual margin
+        marginTop: marginTop ? `${marginTop}px` : undefined,
+        marginBottom: marginBottom ? `${marginBottom}px` : undefined,
+        marginLeft: marginLeft ? `${marginLeft}px` : undefined,
+        marginRight: marginRight ? `${marginRight}px` : undefined,
+
+        background: background || "transparent",
         borderRadius: radius ? `${radius}px` : undefined,
         border:
           borderWidth && borderWidth > 0
             ? `${borderWidth}px solid ${borderColor || "#000"}`
             : "none",
+
         boxSizing: "border-box",
-        minWidth: 0,
 
-        // ✅ handle width as text or number
-        width:
-          typeof width === "number"
-            ? `${width}px`
-            : width && width.trim() !== ""
-            ? width
-            : undefined,
-
-        // ✅ handle height properly
-        height:
-          typeof height === "number"
-            ? `${height}px`
-            : height && height.trim() !== ""
-            ? height
-            : undefined,
+        width: width && width.trim() !== "" ? width : "100%",
+        height: height && height.trim() !== "" ? height : "100%",
       }}
     >
       <Content />
@@ -82,11 +96,59 @@ const FlexItemConfig = {
       defaultValue: "auto",
     },
 
+    // Flex container behavior
+    direction: {
+      type: "select",
+      label: "Flex Direction",
+      options: [
+        { label: "row", value: "row" },
+        { label: "row-reverse", value: "row-reverse" },
+        { label: "column", value: "column" },
+        { label: "column-reverse", value: "column-reverse" },
+      ],
+      defaultValue: "row",
+    },
+    justifyContent: {
+      type: "select",
+      label: "Justify Content",
+      options: [
+        { label: "flex-start", value: "flex-start" },
+        { label: "center", value: "center" },
+        { label: "flex-end", value: "flex-end" },
+        { label: "space-between", value: "space-between" },
+        { label: "space-around", value: "space-around" },
+        { label: "space-evenly", value: "space-evenly" },
+      ],
+      defaultValue: "flex-start",
+    },
+    alignItems: {
+      type: "select",
+      label: "Align Items",
+      options: [
+        { label: "stretch", value: "stretch" },
+        { label: "flex-start", value: "flex-start" },
+        { label: "center", value: "center" },
+        { label: "flex-end", value: "flex-end" },
+        { label: "baseline", value: "baseline" },
+      ],
+      defaultValue: "stretch",
+    },
+
+    // Padding
+    paddingTop: { type: "number", label: "Padding Top", defaultValue: 0 },
+    paddingBottom: { type: "number", label: "Padding Bottom", defaultValue: 0 },
+    paddingLeft: { type: "number", label: "Padding Left", defaultValue: 0 },
+    paddingRight: { type: "number", label: "Padding Right", defaultValue: 0 },
+
+    // Margin
+    marginTop: { type: "number", label: "Margin Top", defaultValue: 0 },
+    marginBottom: { type: "number", label: "Margin Bottom", defaultValue: 0 },
+    marginLeft: { type: "number", label: "Margin Left", defaultValue: 0 },
+    marginRight: { type: "number", label: "Margin Right", defaultValue: 0 },
+
     // Appearance
-    padding: { type: "number", label: "Padding", defaultValue: 12 },
     background: { type: "text", label: "Background", defaultValue: "#ffffff" },
     radius: { type: "number", label: "Border Radius", defaultValue: 8 },
-
     borderWidth: {
       type: "number",
       label: "Border Width (px)",
@@ -100,8 +162,13 @@ const FlexItemConfig = {
       defaultValue: "#000000",
     },
 
-    width: { type: "text", label: "Width (px, %, auto)", defaultValue: "" },
-    height: { type: "text", label: "Height (px, %, auto)", defaultValue: "" },
+    // Size
+    width: { type: "text", label: "Width (px, %, auto)", defaultValue: "100%" },
+    height: {
+      type: "text",
+      label: "Height (px, %, auto)",
+      defaultValue: "100%",
+    },
 
     // Slot
     content: { type: "slot" },
@@ -113,13 +180,23 @@ const FlexItemConfig = {
     basis: "auto",
     order: 0,
     alignSelf: "auto",
-    padding: 12,
+    direction: "row",
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    marginTop: 0,
+    marginBottom: 0,
+    marginLeft: 0,
+    marginRight: 0,
     background: "#ffffff",
     radius: 8,
     borderWidth: 0,
     borderColor: "#000000",
-    width: "200px",
-    height: "200px",
+    width: "100%",
+    height: "100%",
   },
 
   render: ({ puck, content, ...props }) => (
