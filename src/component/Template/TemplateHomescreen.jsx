@@ -1,6 +1,6 @@
 import useTemplate from "../../hooks/useTemplate";
-const TemplateHomescreen = () => {
-  const { handleLogout } = useTemplate();
+const TemplateHomeScreen = () => {
+  const { handleLogout, handleTemplate, handleEditor } = useTemplate();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -18,7 +18,10 @@ const TemplateHomescreen = () => {
             >
               Logout
             </button>
-            <button className="bg-blue-600  text-sm font-medium hover:bg-blue-700 text-white  py-2 px-4 rounded-lg shadow-md transition-colors">
+            <button
+              onClick={handleTemplate}
+              className="bg-blue-600  text-sm font-medium hover:bg-blue-700 text-white  py-2 px-4 rounded-lg shadow-md transition-colors"
+            >
               {" "}
               Select Template
             </button>
@@ -32,7 +35,10 @@ const TemplateHomescreen = () => {
           <h2 className="text-xl font-semibold text-gray-700">
             you don't have templates please create templates
           </h2>
-          <button className="bg-blue-600 w-fit text-sm font-medium hover:bg-blue-700 text-white  py-2 px-4 rounded-lg shadow-md transition-colors">
+          <button
+            onClick={handleEditor}
+            className="bg-blue-600 w-fit text-sm font-medium hover:bg-blue-700 text-white  py-2 px-4 rounded-lg shadow-md transition-colors"
+          >
             {" "}
             Create Template
           </button>
@@ -43,4 +49,4 @@ const TemplateHomescreen = () => {
   );
 };
 
-export default TemplateHomescreen;
+export default TemplateHomeScreen;
