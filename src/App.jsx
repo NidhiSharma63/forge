@@ -1,36 +1,44 @@
-import { Puck } from "@measured/puck";
-import "@measured/puck/puck.css";
-import { ButtonConfig } from "./puckComponents/Button";
-import { CardConfig } from "./puckComponents/Card";
-import { FlexContainerConfig } from "./puckComponents/Flex";
-import { FlexItemConfig } from "./puckComponents/FlexItem";
-import { GridConfig } from "./puckComponents/Grid";
-import { HeadingConfig } from "./puckComponents/Heading";
-import { ImageBlockConfig } from "./puckComponents/Image";
-import { ParagraphConfig } from "./puckComponents/Paragraph";
-import { SpacerConfig } from "./puckComponents/Spacer";
-// Create Puck component config
-const config = {
-  components: {
-    Grid: GridConfig,
-    "Grid Cell": CardConfig,
-    Image: ImageBlockConfig,
-    Flex: FlexContainerConfig,
-    "Flex Item": FlexItemConfig,
-    Spacer: SpacerConfig,
-    Button: ButtonConfig,
-    HeadingBlock: HeadingConfig,
-    ParagraphBlock: ParagraphConfig,
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  RouterProvider,
+} from "react-router";
+import SignIn from "./pages/Auth/SignIn";
+import SignUp from "./pages/Auth/SignUp";
+import PuckEditor from "./pages/PuckEditor";
+import getToken from "./utils/getToken";
+
+function ProtectedRoute() {
+  const isAuthed = getToken();
+
+  if (!isAuthed) {
+    return <Navigate to="/signin" replace />;
+  }
+
+  return <Outlet />;
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
-};
+  {
+    path: "/signin",
+    element: <SignIn />,
+  },
+  {
+    element: <ProtectedRoute />, // wrapper
+    children: [
+      {
+        path: "/",
+        element: <PuckEditor />,
+      },
+    ],
+  },
+]);
 
-// Describe the initial data
-const initialData = {};
-
-// Save the data to your database
-const save = (data) => {};
-
-// Render Puck editor
-export default function Editor() {
-  return <Puck config={config} data={initialData} onPublish={save} />;
+export default function App() {
+  return <RouterProvider router={router} />;
 }
