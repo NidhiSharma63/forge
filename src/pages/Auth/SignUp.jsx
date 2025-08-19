@@ -1,6 +1,7 @@
 import { EyeClosed, EyeIcon } from "lucide-react";
 import { useCallback, useState } from "react";
 import { Link } from "react-router";
+import { validateEmail, validatePassword } from "../../utils/validateFields";
 
 const SignUp = () => {
   // ek hi object for all form fields
@@ -9,7 +10,11 @@ const SignUp = () => {
     email: "",
     password: "",
   });
-
+  const [formErrors, setFormErrors] = useState({
+    email: "",
+    password: "",
+    username: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
 
   // single handler for all input changes
@@ -19,12 +24,91 @@ const SignUp = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === "email") {
+      if (validateEmail(value)) {
+        setFormErrors((prev) => ({
+          ...prev,
+          email: "",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          email: "Invalid Email Address",
+        }));
+      }
+    }
+
+    if (name === "password") {
+      if (validatePassword(value)) {
+        setFormErrors((prev) => ({
+          ...prev,
+          password: "",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          password:
+            "Password must be at least 5 chars & include a special character",
+        }));
+      }
+    }
+
+    if (name === "username") {
+      if (value.length >= 3) {
+        setFormErrors((prev) => ({
+          ...prev,
+          username: "",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          username: "Username must be at least 3 chars",
+        }));
+      }
+    }
   }, []);
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
       console.log("Form Submitted:", formData);
+      if (validateEmail(formData.email)) {
+        setFormErrors((prev) => ({
+          ...prev,
+          email: "",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          email: "Invalid Email Address",
+        }));
+      }
+
+      if (validatePassword(formData.password)) {
+        setFormErrors((prev) => ({
+          ...prev,
+          password: "",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          password:
+            "Password must be at least 5 chars & include a special character",
+        }));
+      }
+
+      if (formData.username.length >= 3) {
+        setFormErrors((prev) => ({
+          ...prev,
+          username: "",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          username: "Username must be at least 3 chars",
+        }));
+      }
     },
     [formData]
   );
@@ -47,6 +131,9 @@ const SignUp = () => {
               placeholder="Enter username"
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
             />
+            {formErrors.username && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.username}</p>
+            )}
           </div>
 
           {/* Email */}
@@ -60,6 +147,9 @@ const SignUp = () => {
               placeholder="Enter email"
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
             />
+            {formErrors.email && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -74,6 +164,7 @@ const SignUp = () => {
                 placeholder="Enter password"
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
@@ -81,6 +172,11 @@ const SignUp = () => {
               >
                 {showPassword ? <EyeIcon /> : <EyeClosed />}
               </button>
+              {formErrors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formErrors.password}
+                </p>
+              )}
             </div>
           </div>
 

@@ -1,11 +1,90 @@
 import { EyeClosed, EyeIcon } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Link } from "react-router";
+import { validateEmail, validatePassword } from "../../utils/validateFields";
 
 export default function SignIn() {
   const [showPw, setShowPw] = useState(false);
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    email: "",
+    password: "",
+  });
+  // single handler for all input changes
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (name === "email") {
+      if (validateEmail(value)) {
+        setFormErrors((prev) => ({
+          ...prev,
+          email: "",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          email: "Invalid Email Address",
+        }));
+      }
+    }
+
+    if (name === "password") {
+      if (validatePassword(value)) {
+        setFormErrors((prev) => ({
+          ...prev,
+          password: "",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          password:
+            "Password must be at least 5 chars & include a special character",
+        }));
+      }
+    }
+  }, []);
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      console.log("Form Submitted:", formData);
+
+      if (!validateEmail(formData.email)) {
+        setFormErrors((prev) => ({
+          ...prev,
+          email: "Invalid Email Address",
+        }));
+        return;
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          email: "",
+        }));
+      }
+
+      if (!validatePassword(formData.password)) {
+        setFormErrors((prev) => ({
+          ...prev,
+          password:
+            "Password must be at least 5 chars & include a special character",
+        }));
+      } else {
+        setFormErrors((prev) => ({
+          ...prev,
+          password: "",
+        }));
+      }
+    },
+    [formData, setFormErrors]
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f9f9f9] p-4">
@@ -20,12 +99,16 @@ export default function SignIn() {
           </label>
           <input
             id="email"
+            name="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             placeholder="you@example.com"
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
           />
+          {formErrors.email && (
+            <p className="text-red-500 text-sm">{formErrors.email}</p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -38,12 +121,14 @@ export default function SignIn() {
           <div className="relative">
             <input
               id="password"
+              name="password"
               type={showPw ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
               placeholder="••••••••"
               className="w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
             />
+
             <button
               type="button"
               onClick={() => setShowPw((s) => !s)}
@@ -51,10 +136,16 @@ export default function SignIn() {
             >
               {showPw ? <EyeIcon /> : <EyeClosed />}
             </button>
+            {formErrors.password && (
+              <p className="text-red-500 text-sm">{formErrors.password}</p>
+            )}
           </div>
         </div>
 
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors">
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors"
+        >
           Save
         </button>
 
