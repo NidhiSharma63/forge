@@ -10,4 +10,11 @@ const getUserDetails = () => {
   }
 };
 
+export const saveDetailsToLocalStorage = (userDetails) => {
+  localStorage.setItem(
+    LOCALSTORAGE_KEY.USER_DETAILS,
+    JSON.stringify(userDetails)
+  );
+};
+
 export default getUserDetails;

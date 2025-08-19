@@ -7,6 +7,7 @@ import {
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import PuckEditor from "./pages/PuckEditor";
+import Templates from "./pages/Templates";
 import getToken from "./utils/getToken";
 
 function ProtectedRoute() {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Templates />,
+      },
+      {
+        path: "/editor",
         element: <PuckEditor />,
       },
     ],

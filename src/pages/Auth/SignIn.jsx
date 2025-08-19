@@ -1,13 +1,21 @@
-import { EyeClosed, EyeIcon } from "lucide-react";
-import { useCallback, useState } from "react";
+import { EyeClosed, EyeIcon, Loader } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router";
+import { v4 } from "uuid";
+import useAuth from "../../api/queries/useAuth";
 import { validateEmail, validatePassword } from "../../utils/validateFields";
 
 export default function SignIn() {
+  const uniqueBrowserId = useMemo(() => v4(), []);
+
+  const { useSigninQuery } = useAuth();
+  const { mutateAsync: login } = useSigninQuery(uniqueBrowserId);
+  const [isLoading, setIsLoading] = useState(false);
   const [showPw, setShowPw] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    uniqueBrowserId,
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -53,7 +61,7 @@ export default function SignIn() {
   }, []);
 
   const handleSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
       console.log("Form Submitted:", formData);
 
@@ -81,6 +89,13 @@ export default function SignIn() {
           ...prev,
           password: "",
         }));
+      }
+
+      try {
+        setIsLoading(true);
+        await login(formData);
+      } finally {
+        setIsLoading(false);
       }
     },
     [formData, setFormErrors]
@@ -142,12 +157,16 @@ export default function SignIn() {
           </div>
         </div>
 
-        <button
-          onClick={handleSubmit}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors"
-        >
-          Save
-        </button>
+        {isLoading ? (
+          <Loader isLoading={isLoading} />
+        ) : (
+          <button
+            onClick={handleSubmit}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors"
+          >
+            Save
+          </button>
+        )}
 
         <p className="text-sm text-center text-gray-600">
           Already have an account?{" "}

@@ -1,14 +1,20 @@
-import { EyeClosed, EyeIcon } from "lucide-react";
-import { useCallback, useState } from "react";
+import { EyeClosed, EyeIcon, Loader } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router";
+import { v4 } from "uuid";
+import useAuth from "../../api/queries/useAuth";
 import { validateEmail, validatePassword } from "../../utils/validateFields";
-
 const SignUp = () => {
+  const { useSignupQuery } = useAuth();
+  const uniqueBrowserId = useMemo(() => v4(), []);
+  const { mutateAsync: signUp } = useSignupQuery(uniqueBrowserId);
+  const [isLoading, setIsLoading] = useState(false);
   // ek hi object for all form fields
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
+    uniqueBrowserId,
   });
   const [formErrors, setFormErrors] = useState({
     email: "",
@@ -70,7 +76,7 @@ const SignUp = () => {
   }, []);
 
   const handleSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
       console.log("Form Submitted:", formData);
       if (validateEmail(formData.email)) {
@@ -109,8 +115,15 @@ const SignUp = () => {
           username: "Username must be at least 3 chars",
         }));
       }
+      try {
+        setIsLoading(true);
+        await signUp(formData);
+        setIsLoading(false);
+      } finally {
+        setIsLoading(false);
+      }
     },
-    [formData]
+    [formData, signUp]
   );
 
   return (
@@ -181,12 +194,16 @@ const SignUp = () => {
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Create Account
-          </button>
+          {isLoading ? (
+            <Loader isLoading={isLoading} />
+          ) : (
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            >
+              Create Account
+            </button>
+          )}
         </form>
 
         {/* Already have account */}

@@ -10,4 +10,8 @@ const getToken = () => {
   }
 };
 
+export const saveTokenToLocalStorage = (token) => {
+  localStorage.setItem(LOCALSTORAGE_KEY.TOKEN, JSON.stringify(token));
+};
+
 export default getToken;
