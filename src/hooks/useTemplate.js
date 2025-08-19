@@ -1,9 +1,15 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import useAuth from "../api/queries/useAuth";
-const useTemplate = () => {
+import useTemplate from "../api/queries/useTemplate";
+
+const useTemplateComp = () => {
   const { useLogoutQuery } = useAuth();
   const { mutateAsync: logout } = useLogoutQuery();
+  const { useGetAllTemplatesQuery } = useTemplate();
+  const { data: allTemplate } = useGetAllTemplatesQuery();
+
+  console.log(allTemplate, "allTemplate");
 
   // navigation
   const navigation = useNavigate();
@@ -24,4 +30,4 @@ const useTemplate = () => {
   return { handleLogout, handleTemplate, handleEditor };
 };
 
-export default useTemplate;
+export default useTemplateComp;

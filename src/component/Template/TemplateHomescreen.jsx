@@ -1,6 +1,6 @@
-import useTemplate from "../../hooks/useTemplate";
+import useTemplateComp from "../../hooks/useTemplate";
 const TemplateHomeScreen = () => {
-  const { handleLogout, handleTemplate, handleEditor } = useTemplate();
+  const { handleLogout, handleTemplate, handleEditor } = useTemplateComp();
 
   return (
     <div className="min-h-screen bg-gray-50">
