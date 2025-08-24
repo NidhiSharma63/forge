@@ -53,8 +53,6 @@ const ParagraphConfig = {
       type: "number",
       label: "Font Size (px)",
       defaultValue: 16,
-      min: 10,
-      max: 48,
     },
     fontWeight: {
       type: "select",

@@ -61,11 +61,12 @@ const FlexContainerConfig = {
       type: "select",
       label: "Wrap",
       options: [
+        { label: "auto", value: "auto" },
         { label: "nowrap", value: "nowrap" },
         { label: "wrap", value: "wrap" },
         { label: "wrap-reverse", value: "wrap-reverse" },
       ],
-      defaultValue: "wrap",
+      defaultValue: "auto",
     },
     justify: {
       type: "select",
@@ -178,7 +179,7 @@ const FlexContainerConfig = {
 
   defaultProps: {
     direction: "row",
-    wrap: "wrap",
+    wrap: "auto",
     justify: "flex-start",
     alignItems: "stretch",
     alignContent: "stretch",
