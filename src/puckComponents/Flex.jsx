@@ -12,6 +12,11 @@ const FlexContainer = ({
   backgroundColor,
   minHeight,
   width,
+  backgroundImage,
+  backgroundAttachment,
+  backgroundPosition,
+  backgroundRepeat,
+  backgroundSize,
   content: Content,
 }) => {
   const style = {
@@ -29,6 +34,11 @@ const FlexContainer = ({
     minHeight: minHeight ? `${minHeight}px` : undefined,
     width: width || "100%",
     boxSizing: "border-box",
+    backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
+    backgroundAttachment,
+    backgroundPosition,
+    backgroundRepeat,
+    backgroundSize,
   };
 
   return <Content style={style} />;
@@ -114,7 +124,54 @@ const FlexContainerConfig = {
       label: "Background Color",
       defaultValue: "#ffffff",
     },
-
+    backgroundImage: {
+      type: "text",
+      label: "Background Image (URL)",
+      defaultValue: "",
+    },
+    backgroundSize: {
+      type: "select",
+      label: "Background Size",
+      options: [
+        { label: "cover", value: "cover" },
+        { label: "contain", value: "contain" },
+        { label: "auto", value: "auto" },
+      ],
+      defaultValue: "cover",
+    },
+    backgroundRepeat: {
+      type: "select",
+      label: "Background Repeat",
+      options: [
+        { label: "no-repeat", value: "no-repeat" },
+        { label: "repeat", value: "repeat" },
+        { label: "repeat-x", value: "repeat-x" },
+        { label: "repeat-y", value: "repeat-y" },
+      ],
+      defaultValue: "no-repeat",
+    },
+    backgroundPosition: {
+      type: "select",
+      label: "Background Position",
+      options: [
+        { label: "center", value: "center" },
+        { label: "top", value: "top" },
+        { label: "bottom", value: "bottom" },
+        { label: "left", value: "left" },
+        { label: "right", value: "right" },
+      ],
+      defaultValue: "center",
+    },
+    backgroundAttachment: {
+      type: "select",
+      label: "Background Attachment",
+      options: [
+        { label: "scroll", value: "scroll" },
+        { label: "fixed", value: "fixed" },
+        { label: "local", value: "local" },
+      ],
+      defaultValue: "scroll",
+    },
     // Slot for children
     content: { type: "slot" },
   },
@@ -132,6 +189,10 @@ const FlexContainerConfig = {
     backgroundColor: "#ffffff", // ✅ default bg
     minHeight: 200,
     width: "100%",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundAttachment: "scroll",
   },
 
   render: ({ content, ...props }) => (
