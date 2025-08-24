@@ -31,10 +31,24 @@ const useTemplate = () => {
       },
     });
   };
+
+  const useUpdateTemplateQuery = () => {
+    return useMutation({
+      mutationFn: (payload) => customAxiosPost("/updateTemplate", payload),
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY.TEMPLATE]);
+      },
+      onError: (error) => {
+        console.log("update template error", error);
+        toast.error(error.response.data.error);
+      },
+    });
+  };
   return {
     useGetAllTemplatesQuery,
     useGetSingleTemplatesQuery,
     useCreateTemplateQuery,
+    useUpdateTemplateQuery,
   };
 };
 

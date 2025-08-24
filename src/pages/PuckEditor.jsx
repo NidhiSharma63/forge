@@ -32,8 +32,13 @@ const config = {
 
 const PuckEditor = () => {
   const { id } = useParams();
-  const { useCreateTemplateQuery, useGetSingleTemplatesQuery } = useTemplate();
+  const {
+    useCreateTemplateQuery,
+    useGetSingleTemplatesQuery,
+    useUpdateTemplateQuery,
+  } = useTemplate();
   const { mutateAsync: createTemplate } = useCreateTemplateQuery();
+  const { mutateAsync: updateTemplate } = useUpdateTemplateQuery();
   const { data } = useGetSingleTemplatesQuery(id);
   const [initialState, setInitialState] = useState({});
 
@@ -42,18 +47,21 @@ const PuckEditor = () => {
   }, [data]);
 
   const handlePublish = async (payload) => {
-    toast.info("We are creating a template");
+    toast.info(`We are ${id ? "updating" : "creating"} a template`);
     const finalPayload = {
       content: payload.content,
       root: payload.root,
       zones: payload.zones,
     };
-    console.log(finalPayload);
+    if (id) {
+      await updateTemplate({ data: finalPayload, templateId: id });
+      toast.success("Template updated successfully");
+      return;
+    }
     await createTemplate({ data: finalPayload });
     toast.success("Template created successfully");
   };
   if (!initialState) return <div>Loading...</div>;
-  console.log({ initialState });
   return <Puck config={config} data={initialState} onPublish={handlePublish} />;
 };
 
