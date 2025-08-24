@@ -1,7 +1,16 @@
+import useTemplate from "../../api/queries/useTemplate";
 import useTemplateComp from "../../hooks/useTemplate";
 const TemplateHomeScreen = () => {
-  const { handleLogout, handleTemplate, handleEditor } = useTemplateComp();
+  const { useGetAllTemplatesQuery } = useTemplate();
+  const { data: allTemplates, isPending } = useGetAllTemplatesQuery();
+  const {
+    handleLogout,
+    handleTemplate,
+    handleEditor,
+    handleNavigateToEditorWithId,
+  } = useTemplateComp();
 
+  // console.log(allTemplates, "isPending", isPending);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -32,16 +41,37 @@ const TemplateHomeScreen = () => {
       {/* Main Content */}
       <main className="p-6 max-w-7xl mx-auto">
         <div className="flex items-center justify-center gap-3 flex-col">
-          <h2 className="text-xl font-semibold text-gray-700">
-            you don't have templates please create templates
-          </h2>
-          <button
-            onClick={handleEditor}
-            className="bg-blue-600 w-fit text-sm font-medium hover:bg-blue-700 text-white  py-2 px-4 rounded-lg shadow-md transition-colors"
-          >
+          {allTemplates?.map((template) => {
+            return (
+              <div className="flex items-center justify-center gap-3 flex-col">
+                <h2 className="text-xl font-semibold text-gray-700">
+                  {template?._id}
+                </h2>
+                <button
+                  onClick={() => handleNavigateToEditorWithId(template?._id)}
+                  className="bg-blue-600 w-fit text-sm font-medium hover:bg-blue-700 text-white  py-2 px-4 rounded-lg shadow-md transition-colors"
+                >
+                  {" "}
+                  Select Template
+                </button>
+              </div>
+            );
+          })}
+          {/* {allTemplates?.length == 0 && ( */}
+          <>
             {" "}
-            Create Template
-          </button>
+            <h2 className="text-xl font-semibold text-gray-700">
+              you don't have templates please create templates
+            </h2>
+            <button
+              onClick={handleEditor}
+              className="bg-blue-600 w-fit text-sm font-medium hover:bg-blue-700 text-white  py-2 px-4 rounded-lg shadow-md transition-colors"
+            >
+              {" "}
+              Create Template
+            </button>
+          </>
+          {/* )} */}
         </div>
         {/* Your content here */}
       </main>

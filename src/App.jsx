@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <Templates />,
       },
       {
-        path: "/editor",
+        path: "/editor/:id?", // `id` optional
         element: <PuckEditor />,
       },
     ],

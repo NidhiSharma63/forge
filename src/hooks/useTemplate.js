@@ -1,15 +1,12 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import useAuth from "../api/queries/useAuth";
-import useTemplate from "../api/queries/useTemplate";
 
 const useTemplateComp = () => {
   const { useLogoutQuery } = useAuth();
   const { mutateAsync: logout } = useLogoutQuery();
-  const { useGetAllTemplatesQuery } = useTemplate();
-  const { data: allTemplate } = useGetAllTemplatesQuery();
-
-  console.log(allTemplate, "allTemplate");
+  // const { useGetAllTemplatesQuery } = useTemplate();
+  // const { data: allTemplate } = useGetAllTemplatesQuery();
 
   // navigation
   const navigation = useNavigate();
@@ -27,7 +24,16 @@ const useTemplateComp = () => {
   const handleEditor = useCallback(() => {
     navigation("/editor");
   }, [navigation]);
-  return { handleLogout, handleTemplate, handleEditor };
+
+  const handleNavigateToEditorWithId = useCallback((id) => {
+    navigation(`editor/${id}`);
+  }, []);
+  return {
+    handleLogout,
+    handleTemplate,
+    handleEditor,
+    handleNavigateToEditorWithId,
+  };
 };
 
 export default useTemplateComp;

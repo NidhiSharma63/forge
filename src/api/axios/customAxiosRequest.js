@@ -6,7 +6,6 @@ import axiosInstance from "./axiosInstance";
 export const customAxiosPost = async (url, data) => {
   const userId = getUserDetails()?._id;
   const token = getToken();
-  console.log("token", token);
   const response = await axiosInstance.post(
     url,
     {

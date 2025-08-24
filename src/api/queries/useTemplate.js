@@ -1,6 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 import { QUERY_KEY } from "../../constant/Key";
-import { customAxiosGet } from "../axios/customAxiosRequest";
+import { queryClient } from "../../main.jsx";
+import { customAxiosGet, customAxiosPost } from "../axios/customAxiosRequest";
 
 const useTemplate = () => {
   const useGetAllTemplatesQuery = () => {
@@ -9,7 +11,31 @@ const useTemplate = () => {
       queryKey: [QUERY_KEY.TEMPLATE],
     });
   };
-  return { useGetAllTemplatesQuery };
+
+  const useGetSingleTemplatesQuery = (id) => {
+    return useQuery({
+      queryFn: () => customAxiosGet(`/singleTemplate`, { templateId: id }),
+      queryKey: [QUERY_KEY.TEMPLATE],
+    });
+  };
+
+  const useCreateTemplateQuery = () => {
+    return useMutation({
+      mutationFn: (payload) => customAxiosPost("/createTemplate", payload),
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY.TEMPLATE]);
+      },
+      onError: (error) => {
+        console.log("create template error", error);
+        toast.error(error.response.data.error);
+      },
+    });
+  };
+  return {
+    useGetAllTemplatesQuery,
+    useGetSingleTemplatesQuery,
+    useCreateTemplateQuery,
+  };
 };
 
 export default useTemplate;
