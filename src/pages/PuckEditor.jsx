@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import useTemplate from "../api/queries/useTemplate";
 import { ButtonConfig } from "../puckComponents/Button";
 import { CardConfig } from "../puckComponents/Card";
+import { DivBlockConfig } from "../puckComponents/DivBlock";
 import { FlexContainerConfig } from "../puckComponents/Flex";
 import { FlexItemConfig } from "../puckComponents/FlexItem";
 import { GridConfig } from "../puckComponents/Grid";
@@ -25,6 +26,7 @@ const config = {
     Button: ButtonConfig,
     HeadingBlock: HeadingConfig,
     ParagraphBlock: ParagraphConfig,
+    "Magic Block": DivBlockConfig,
   },
 };
 

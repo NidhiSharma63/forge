@@ -59,8 +59,6 @@ const ButtonConfig = {
       type: "number",
       label: "Font Size (px)",
       defaultValue: 16,
-      min: 8,
-      max: 48,
     },
     fontWeight: {
       type: "select",
@@ -76,8 +74,6 @@ const ButtonConfig = {
       type: "number",
       label: "Border Radius (px)",
       defaultValue: 6,
-      min: 0,
-      max: 50,
     },
     borderWidth: {
       type: "select",
@@ -100,15 +96,11 @@ const ButtonConfig = {
       type: "number",
       label: "Padding X (px)",
       defaultValue: 16,
-      min: 4,
-      max: 48,
     },
     paddingY: {
       type: "number",
       label: "Padding Y (px)",
       defaultValue: 8,
-      min: 2,
-      max: 32,
     },
     width: {
       type: "text",
